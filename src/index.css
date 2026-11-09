@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --color-background: #0f1117;
+  --color-foreground: #e8eaf0;
+  --color-card: #181c27;
+  --color-card-foreground: #e8eaf0;
+  --color-primary: #4a9eff;
+  --color-primary-foreground: #0f1117;
+  --color-secondary: #1e2333;
+  --color-secondary-foreground: #9ba3b8;
+  --color-muted: #1a1f2e;
+  --color-muted-foreground: #6b7491;
+  --color-accent: #4a9eff;
+  --color-accent-foreground: #0f1117;
+  --color-border: #252b3d;
+  --color-ring: #4a9eff;
+  --radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #0f1117;
+  color: #e8eaf0;
+}
+
+body.light {
+  background-color: #f4f5f7;
+  color: #111318;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #252b3d; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #4a9eff40; }
+
+.mono {
+  font-family: 'DM Mono', monospace;
+}

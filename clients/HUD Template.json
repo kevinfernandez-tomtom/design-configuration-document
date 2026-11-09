@@ -1,0 +1,23 @@
+{
+  "displayHpComponent": true,
+  "displayMapComponent": true,
+  "displayPX": false,
+  "displayVignette": true,
+  "vignetteName": "default_hud_vignette",
+  "nipLayoutType": "NORMAL_LAYOUT",
+  "hpElementsToShowOnHud": [
+    "CMP"
+  ],
+  "hpComponentRect": {
+    "topMargin": 0,
+    "startMargin": 0,
+    "width": 400,
+    "height": 324
+  },
+  "safeAreaComponentRect": {
+    "topMargin": 0,
+    "startMargin": 574,
+    "width": 574,
+    "height": 840
+  }
+}

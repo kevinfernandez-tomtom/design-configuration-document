@@ -1,0 +1,98 @@
+Car Line Name: STLA O1H (H1) + Software Release Number: 0.1 (H1)
+Head Unit (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [355*133.1mm]
+		- Screen Resolution [2344*880px]
+		- Header/Footer Size [192px]
+		- DPI [168]
+		- Diagonal Measurement [?]
+		- Display FPS (Frames per second) [?]
+		- Minimum Font Size [?]
+		- Keyboard Size [1554*434px]
+	- Display Zones (SH)
+		- Projection Area [1628*688px]
+		- Map Display Area [1628*688px]
+		- Content Layouts [1]
+	- Configurations and Customisations (SH)
+		- Horizon Panel Elements to display [CMP, SLG, JV, ETA]
+		- NIP Layout Type ["NORMAL_LAYOUT"]
+		- ETA Layout Type ["NORMAL_LAYOUT_WIDE", "NORMAL_LAYOUT_NARROW", "MINIMAL", "MEDIUM", "MAXIMAL"]
+		- Chevron [Check with TT UX]
+		- UI Sizing Theme [?]
+		- Weather Button [Enabled]
+		- Compass [Enabled]
+		- Icons [Custom]
+		- Search [Custom - Google]
+		- Settings [Default]
+		- Map Controls Configuration
+			- Position [Driver]
+			- Visibility [Default]
+		- Map & UI Mode Sync [False]
+		- Number of Ambiances/Themes [?]
+		- Ambiance related changes [?]
+		- 3D Buildings [Enabled]
+		- 3D Landmarks [Enabled]
+	Notes:
+	- Diagonal measurement to be provided by STLA.
+	- Display FPS to be provided by STLA.
+	- Minimum Font Size to be provided by STLA.
+	- UI Sizing Theme to be provided by TT UX
+	- Number of ambiances to be provided by STLA.
+	- Ambiance related changes to be provided by STLA
+
+HUD (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [?]
+		- Screen Resolution [?]
+		- Header/Footer Size [?]
+		- DPI [?]
+		- Scale Factor [?]
+		- Diagonal Measurement [?]
+		- Display FPS (Frames per second) [?]
+		- Minimum Font Size [?]
+		- Number of Content Layouts [2]
+	- Layout #1-TBT Only (SH)
+		- Projection Area [660*151px]
+		- Map Safe Area [276*151px]
+		- Screen Resolution [?]
+		- Content Zone #1 Size [number * number]
+		- Content Zone #1 Positioning [xy coordinates]
+		- Content Zone #2 Size [number * number]
+		- Content Zone #2 Positioning [xy coordinates]
+		- Configurations:
+			- Horizon Panel Elements to display [SLG,CMP]
+			- Display Map [True/False]
+			- Display Vignette [True/False]
+			- Vignette Name [Text]
+			- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+			- Chevron Customisation [Enabled/Disabled]
+			- UI Sizing Theme [Letter]
+- Notes:
+	- Physical Dimensions to be provided by STLA
+	- Screen Resolution to be provided by STLA
+	- Header/Footer Size to be provided by STLA
+	- DPI to be provided by STLA
+	- Scale Factor to be provided by STLA
+	- Diagonal Measurement to be provided by STLA
+	- Display FPS to be provided by STLA
+	- Minimum Font Size to be provided by STLA
+Navigational Widget (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Number of sizes [Number]
+		- Additional Controls [True/False]
+		- Size of header/footer of controls [Number]
+	- Layout #1 (SH)
+		- Forced Sizing Theme [Letter]
+		- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+		- ETA Layout Type ["NORMAL_LAYOUT_WIDE", "NORMAL_LAYOUT_NARROW", "MINIMAL", "MEDIUM", "MAXIMAL"]
+		- Chevron Customisation [Enabled/Disabled]
+		- UI Sizing Theme [Letter]
+		- Events and Hazards [Enabled/Disabled]
+		- Suggested Destinations [Enabled/Disabled]
+		- Individual UI Themeing [True/False]
+		- Individual Map Themeing [True/False]
+Decision Doc (H2)
+- Topics (H3)

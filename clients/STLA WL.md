@@ -1,0 +1,128 @@
+Car Line Name: STLA WL (H1) + Software Release Number: 0.1 (H1)
+Head Unit (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [320*180mm]
+		- Screen Resolution [1920*1080]
+		- Header/Footer Size [?]
+		- DPI [152]
+		- Diagonal Measurement [?]
+		- Display FPS (Frames per second) [?]
+		- Minimum Font Size [32px/24pt/2.67mm]
+		- Keyboard Size [1920*370]
+	- Display Zones (SH)
+		- Projection Area [1920*1080]
+		- Map Display Area [1920*1080]
+		- Content Layouts [4]
+	- Configurations and Customisations (SH)
+		- Horizon Panel Elements to display [CMP, SLG, JV, ETA]
+		- NIP Layout Type ["NORMAL_LAYOUT"]
+		- ETA Layout Type ["NORMAL_LAYOUT_WIDE"]
+		- Chevron [Custom]
+		- UI Sizing Theme [?]
+		- Weather Button [Enabled]
+		- Compass [Enabled]
+		- Icons [Custom]
+		- Search [Custom - Google]
+		- Settings [Default]
+		- Map Controls Configuration
+			- Position [Driver]
+			- Visibility [Default]
+		- Map & UI Mode Sync [True]
+		- Number of Ambiances/Themes [2]
+		- Ambiance related changes [Colors]
+		- 3D Buildings [Enabled]
+		- 3D Landmarks [Enabled]
+Notes:
+- Header/Footer Size to be confirmed by STLA
+- Diagonal Measurement to be confirmed by STLA
+- Display FPS to be confirmed by STLA
+- Keyboard size to be confirmed by STLA
+- UI Sizing theme to be confirmed by TT
+
+Cluster (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [243.77*91.41mm]
+		- Screen Resolution [1920*720]
+		- Header/Footer Size [?]
+		- DPI [200]
+		- Diagonal Measurement [?]
+		- Display FPS (Frames per second) [?]
+		- Minimum Font Size [40px/32pt/2.79mm]
+		- Number of Content Layouts [2]
+	- Layout #1 (SH)
+		- Map Projection Area [1920*776]
+		- Map Display Area [1920*776]
+		- Content Zone #1 - Size (Map) [1096*720]
+		- Content Zone #1 (Map) Positioning [0,0]
+		- Content Zone #2 (HP) Size [500*720]
+		- Content Zone #2 (HP) Positioning [0,0]
+		- Content Zone #3 (MSA) Size [596*720]
+		- Content Zone #3 (MSA) Positioning [500,0]
+		- Configurations and Customisations: (SH)
+			- Docked/Undocked [Undocked]
+			- Horizon Panel Elements to display [CMP, SLG, JV, ETA]
+			- Display Map [True]
+			- Display Current Street Component [?]
+			- Display Vignette [?]
+			- Vignette Name [?]
+			- NIP Layout Type ["NORMAL_LAYOUT"]
+			- ETA Layout Type ["NORMAL_LAYOUT_WIDE"]
+			- Chevron [Custom]
+			- UI Sizing Theme [?]
+			- Individual TBT Component [Disabled]
+				- Implementation Type [NA]
+			- Blind Spot Camera [Enabled]
+			- Dynamic Map Safe Area [Enabled]
+Notes:
+- Display Current Street Component to be confirmed by STLA
+- Display Vignette to be confirmed by STLA
+- UI Sizing Theme to be confirmed by TT
+- 
+HUD (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [number * number]
+		- Screen Resolution [number * number]
+		- Header/Footer Size [number * number]
+		- DPI [number]
+		- Scale Factor [Alphanumeric]
+		- Diagonal Measurement [number]
+		- Display FPS (Frames per second) [number]
+		- Minimum Font Size [number]
+		- Number of Content Layouts [number]
+	- Layout #1 (SH)
+		- Map Projection Area [number * number]
+		- Map Safe Area [number * number]
+		- Screen Resolution [number * number]
+		- Content Zone #1 Size [number * number]
+		- Content Zone #1 Positioning [xy coordinates]
+		- Content Zone #2 Size [number * number]
+		- Content Zone #2 Positioning [xy coordinates]
+		- Configurations:
+			- Horizon Panel Elements to display [SLG,CMP]
+			- Display Map [True/False]
+			- Display Vignette [True/False]
+			- Vignette Name [Text]
+			- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+			- Chevron Customisation [Enabled/Disabled]
+			- UI Sizing Theme [Letter]
+Navigational Widget (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Number of sizes [Number]
+		- Additional Controls [True/False]
+		- Size of header/footer of controls [Number]
+	- Layout #1 (SH)
+		- Forced Sizing Theme [Letter]
+		- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+		- ETA Layout Type ["NORMAL_LAYOUT_WIDE", "NORMAL_LAYOUT_NARROW", "MINIMAL", "MEDIUM", "MAXIMAL"]
+		- Chevron Customisation [Enabled/Disabled]
+		- UI Sizing Theme [Letter]
+		- Events and Hazards [Enabled/Disabled]
+		- Suggested Destinations [Enabled/Disabled]
+		- Individual UI Themeing [True/False]
+		- Individual Map Themeing [True/False]
+Decision Doc (H2)
+- Topics (H3)

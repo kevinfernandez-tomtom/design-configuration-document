@@ -1,0 +1,115 @@
+Car Line Name (H1) + Software Release Number (H1)
+Head Unit (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [number * number]
+		- Screen Resolution [number * number]
+		- Header/Footer Size [number * number]
+		- DPI [number]
+		- Diagonal Measurement [number]
+		- Display FPS (Frames per second) [number]
+		- Minimum Font Size [number]
+		- Keyboard Size [number * number]
+	- Display Zones (SH)
+		- Projection Area [number * number]
+		- Map Display Area [number * number]
+		- Content Layouts [number]
+	- Configurations and Customisations (SH)
+		- Horizon Panel Elements to display [CMP, SLG, JV, ETA]
+		- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+		- ETA Layout Type ["NORMAL_LAYOUT_WIDE", "NORMAL_LAYOUT_NARROW", "MINIMAL", "MEDIUM", "MAXIMAL"]
+		- Chevron [Custom/Default]
+		- UI Sizing Theme [Letter]
+		- Weather Button [Enabled/Disabled]
+		- Compass [Enabled/Disabled]
+		- Icons [Custom/Default]
+		- Search [Custom/Default]
+		- Settings [Custom/Default]
+		- Map Controls Configuration
+			- Position [Driver/Passenger]
+			- Visibility [Custom/Default]
+		- Map & UI Mode Sync [True/False]
+		- Number of Ambiances/Themes [Number]
+		- Ambiance related changes [Icons/Fonts/Colors]
+		- 3D Buildings [Enabled/Disabled]
+		- 3D Landmarks [Enabled/Disabled]
+Cluster (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [number * number]
+		- Screen Resolution [number * number]
+		- Header/Footer Size [number * number]
+		- DPI [number]
+		- Scale Factor [Aplhanumeric]
+		- Diagonal Measurement [number]
+		- Display FPS (Frames per second) [number]
+		- Minimum Font Size [number]
+		- Number of Content Layouts [number]
+	- Layout #1 (SH)
+		- Map Projection Area [number * number]
+		- Map Safe Area [number * number]
+		- Content Zone #1 Size [number * number]
+		- Content Zone #1 Positioning [xy coordinates]
+		- Content Zone #2 Size [number * number]
+		- Content Zone #2 Positioning [xy coordinates]
+		- Configurations and Customisations: (SH)
+			- Docked/Undocked [Docked/Undocked]
+			- Horizon Panel Elements to display [CMP, SLG, JV, ETA]
+			- Display Map [True/False]
+			- Display Current Street Component [True/False]
+			- Display Vignette [True/False]
+			- Vignette Name [Text]
+			- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+			- ETA Layout Type ["NORMAL_LAYOUT_WIDE", "NORMAL_LAYOUT_NARROW", "MINIMAL", "MEDIUM", "MAXIMAL"]
+			- Chevron [Custom/Default]
+			- UI Sizing Theme [Letter]
+			- Individual TBT Component [Enabled/Disabled]
+				- Implementation Type [Component/API]
+			- Blind Spot Camera [Enabled/Disabled]
+			- Dynamic Map Safe Area [Enabled/Disabled]
+HUD (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [number * number]
+		- Screen Resolution [number * number]
+		- Header/Footer Size [number * number]
+		- DPI [number]
+		- Scale Factor [Alphanumeric]
+		- Diagonal Measurement [number]
+		- Display FPS (Frames per second) [number]
+		- Minimum Font Size [number]
+		- Number of Content Layouts [number]
+	- Layout #1 (SH)
+		- Map Projection Area [number * number]
+		- Map Safe Area [number * number]
+		- Screen Resolution [number * number]
+		- Content Zone #1 Size [number * number]
+		- Content Zone #1 Positioning [xy coordinates]
+		- Content Zone #2 Size [number * number]
+		- Content Zone #2 Positioning [xy coordinates]
+		- Configurations:
+			- Horizon Panel Elements to display [SLG,CMP]
+			- Display Map [True/False]
+			- Display Vignette [True/False]
+			- Vignette Name [Text]
+			- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+			- Chevron Customisation [Enabled/Disabled]
+			- UI Sizing Theme [Letter]
+Navigational Widget (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Number of sizes [Number]
+		- Additional Controls [True/False]
+		- Size of header/footer of controls [Number]
+	- Layout #1 (SH)
+		- Forced Sizing Theme [Letter]
+		- NIP Layout Type ["NORMAL_LAYOUT", "LANDSCAPE_MINIMAL", "LANDSCAPE_MEDIUM", "LANDSCAPE_MAXIMAL", "PORTRAIT_MINIMAL", "PORTRAIT_MEDIUM", "PORTRAIT_MAXIMAL"]
+		- ETA Layout Type ["NORMAL_LAYOUT_WIDE", "NORMAL_LAYOUT_NARROW", "MINIMAL", "MEDIUM", "MAXIMAL"]
+		- Chevron Customisation [Enabled/Disabled]
+		- UI Sizing Theme [Letter]
+		- Events and Hazards [Enabled/Disabled]
+		- Suggested Destinations [Enabled/Disabled]
+		- Individual UI Themeing [True/False]
+		- Individual Map Themeing [True/False]
+Decision Doc (H2)
+- Topics (H3)

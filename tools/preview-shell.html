@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client Configs — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Tokens ──────────────────────────────────────────────────────────────── */
+:root {
+  --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --bg: #eaecf1;
+  --panel: #f6f7fa;
+  --card: #ffffff;
+  --text: #14161c;
+  --mid: #454c60;
+  --muted: #8b93a8;
+  --faint: #aab1c4;
+  --border: #e0e4ee;
+  --rule: #eef1f6;
+  --accent: #1a6fd4;
+  --accent-soft: rgba(26, 111, 212, 0.08);
+  --chip-bg: #f5f7fb;
+  --chip-border: #dde3ef;
+  --chip-text: #3d4460;
+  --shadow: 0 1px 2px rgba(16, 22, 40, 0.04), 0 8px 24px rgba(16, 22, 40, 0.06);
+}
+html[data-theme="dark"] {
+  --bg: #0b0d13;
+  --panel: #0f1117;
+  --card: #14181f;
+  --text: #e8eaf0;
+  --mid: #a8b0c4;
+  --muted: #6f789a;
+  --faint: #59617a;
+  --border: #232935;
+  --rule: #1c212b;
+  --accent: #4a9eff;
+  --accent-soft: rgba(74, 158, 255, 0.1);
+  --chip-bg: #191e28;
+  --chip-border: #2b323f;
+  --chip-text: #a8b0c4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Shell ───────────────────────────────────────────────────────────────── */
+.shell { display: flex; align-items: flex-start; min-height: 100vh; }
+
+.rail {
+  position: sticky; top: 0; align-self: flex-start;
+  width: 232px; flex-shrink: 0; height: 100vh;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 26px 0; display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.rail-eyebrow {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--faint); padding: 0 22px 14px;
+}
+.rail-item {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 9px 22px; border: none; background: none;
+  border-left: 2px solid transparent;
+  cursor: pointer; text-align: left; width: 100%;
+  font-family: var(--sans); color: var(--muted);
+  transition: background 0.12s, color 0.12s;
+}
+.rail-item:hover { background: var(--accent-soft); color: var(--text); }
+.rail-item.active { border-left-color: var(--accent); color: var(--text); background: var(--card); }
+.rail-item .n { font-family: var(--mono); font-size: 10px; color: var(--faint); width: 18px; flex-shrink: 0; }
+.rail-item.active .n { color: var(--accent); }
+.rail-item .t { font-size: 12px; font-weight: 500; letter-spacing: 0.01em; }
+
+.rail-sep { height: 1px; background: var(--border); margin: 18px 22px; }
+.rail-actions { padding: 0 22px; display: flex; flex-direction: column; gap: 7px; }
+
+.btn {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 11px; border-radius: 3px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--card); color: var(--mid);
+  transition: all 0.12s; text-align: center; white-space: nowrap;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { border-color: rgba(26,111,212,0.35); background: var(--accent-soft); color: var(--accent); }
+html[data-theme="dark"] .btn.primary { border-color: rgba(74,158,255,0.35); }
+.btn.busy { opacity: 0.55; pointer-events: none; }
+.btn.ok { border-color: rgba(16,185,129,0.45); background: rgba(16,185,129,0.12); color: #10b981; }
+
+/* ── Stage ───────────────────────────────────────────────────────────────── */
+.stage { flex: 1; min-width: 0; padding: 40px 44px 96px; }
+.stage-head { max-width: 1040px; margin: 0 auto 30px; }
+.doc-title {
+  font-size: 25px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 6px;
+}
+.doc-sub { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+/* ── Page card ───────────────────────────────────────────────────────────── */
+.page {
+  position: relative;
+  max-width: 1040px; margin: 0 auto 34px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  padding: 46px 52px 40px;
+  scroll-margin-top: 20px;
+}
+.page-tools {
+  position: absolute; top: 12px; right: 14px;
+  display: flex; gap: 6px; opacity: 0; transition: opacity 0.15s;
+}
+.page:hover .page-tools { opacity: 1; }
+
+.page-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px; padding-bottom: 16px; margin-bottom: 30px;
+  border-bottom: 2px solid var(--accent);
+}
+.page-idx {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+  color: var(--accent); margin-bottom: 7px;
+}
+.page-title {
+  font-size: 27px; font-weight: 700; letter-spacing: -0.025em; margin: 0; line-height: 1.1;
+}
+.page-meta { text-align: right; flex-shrink: 0; padding-top: 2px; }
+.page-meta div {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint); line-height: 1.7;
+}
+
+/* H3 */
+.sect { margin-bottom: 28px; }
+.sect:last-child { margin-bottom: 0; }
+.sect-title {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--text); margin: 0 0 4px;
+}
+.sect-title-rule { height: 1px; background: var(--border); margin-bottom: 16px; }
+
+/* SH */
+.sub { margin-bottom: 20px; }
+.sub:last-child { margin-bottom: 0; }
+.sub-title {
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); opacity: 0.85; margin-bottom: 9px;
+}
+.sub-nested {
+  margin: 12px 0 12px 2px; padding-left: 15px;
+  border-left: 2px solid var(--rule);
+}
+
+/* Field row with dotted leader */
+.row { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; }
+.row-label { font-size: 12.5px; color: var(--mid); flex-shrink: 0; max-width: 58%; }
+.row-lead { flex: 1; border-bottom: 1px dotted var(--border); transform: translateY(-3px); min-width: 14px; }
+.row-val { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; flex-shrink: 0; max-width: 52%; }
+
+.type {
+  font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+  letter-spacing: 0.02em; white-space: nowrap;
+}
+.chip {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.04em;
+  padding: 2px 7px; border-radius: 3px;
+  background: var(--chip-bg); border: 1px solid var(--chip-border); color: var(--chip-text);
+  white-space: nowrap;
+}
+
+/* Group (a field with children but no type of its own) */
+.group { margin: 8px 0; }
+.group-label {
+  font-size: 12.5px; color: var(--text); font-weight: 600; margin-bottom: 2px;
+}
+.group-body { padding-left: 15px; border-left: 2px solid var(--rule); margin-left: 2px; }
+
+.page-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--faint);
+}
+
+/* Cover page */
+.cover { text-align: left; }
+.cover .page-head { border-bottom-color: var(--accent); }
+.cover-fields { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.cover-field {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 16px 18px; background: var(--chip-bg);
+}
+.cover-field .k {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
+}
+.cover-field .v {
+  font-family: var(--mono); font-size: 15px; color: var(--faint);
+  border-bottom: 1px dashed var(--chip-border); padding-bottom: 5px;
+}
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+  background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow);
+  border-radius: 4px; padding: 9px 16px;
+  font-family: var(--mono); font-size: 11px; color: var(--text);
+  opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100;
+}
+.toast.show { opacity: 1; }
+
+/* Capture mode — hide interactive chrome from the rasterizer */
+.capturing .page-tools { display: none !important; }
+
+@media print {
+  .rail, .page-tools, .stage-head { display: none !important; }
+  .stage { padding: 0; }
+  .page { box-shadow: none; border: none; margin: 0; break-after: page; max-width: none; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="rail">
+    <div class="rail-eyebrow">Pages</div>
+    <div id="railItems"></div>
+    <div class="rail-sep"></div>
+    <div class="rail-actions">
+      <button class="btn primary" id="btnAll">Export all PNG</button>
+      <button class="btn" id="btnLoad">Load .md…</button>
+      <button class="btn" id="btnTheme">Dark</button>
+      <button class="btn" id="btnPrint">Print / PDF</button>
+    </div>
+    <input type="file" id="fileInput" accept=".md,.markdown,.txt" style="display:none">
+  </nav>
+
+  <main class="stage">
+    <div class="stage-head">
+      <h1 class="doc-title" id="docTitle">Client Configs</h1>
+      <div class="doc-sub" id="docSub"></div>
+    </div>
+    <div id="pages"></div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>/*__HTML2CANVAS__*/</script>
+<script>
+"use strict";
+const MARKDOWN_SOURCE = /*__MARKDOWN__*/"";
+const SOURCE_NAME = /*__SOURCE_NAME__*/"";
+
+// ── Parse the annotated-outline spec format ──────────────────────────────────
+// Lines look like:
+//   Head Unit (H2)
+//   - Sizes and Dimensions (H3)
+//   \t- General (SH)
+//   \t\t- Physical Dimensions [number * number]
+// Structural depth comes from the (H1)/(H2)/(H3)/(SH) annotation; indentation
+// only orders fields and groups beneath their subsection.
+function countIndent(raw) {
+  const ws = (raw.match(/^[\t ]*/) || [""])[0];
+  let level = 0, spaces = 0;
+  for (const ch of ws) {
+    if (ch === "\t") { level++; spaces = 0; }
+    else { spaces++; if (spaces === 2) { level++; spaces = 0; } }
+  }
+  return level;
+}
+
+function parseSpec(src) {
+  const lines = src.replace(/\r\n?/g, "\n").split("\n").filter((l) => l.trim() !== "");
+  const flat = [];
+
+  for (const raw of lines) {
+    const indent = countIndent(raw);
+    const trimmed = raw.trim();
+
+    // Horizontal rules carry no content
+    if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) continue;
+
+    // ── Markdown table rows (the format this app exports) ──
+    if (trimmed.startsWith("|")) {
+      if (/^\|[\s:|-]*\|?$/.test(trimmed)) continue; // separator
+      let cells = trimmed.replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+      const [k, v] = [cells[0] || "", cells[1] || ""];
+      if (k.toLowerCase() === "field" && v.toLowerCase() === "value") continue; // header
+      flat.push({ kind: "FIELD", text: k, spec: v, depth: 3, children: [] });
+      continue;
+    }
+
+    let text = trimmed.replace(/^[-*+]\s+/, "");
+
+    // ── Standard markdown headings ──
+    let kind = null;
+    const md = text.match(/^(#{1,6})\s+(.*)$/);
+    if (md) {
+      const n = md[1].length;
+      kind = n === 1 ? "H1" : n === 2 ? "H2" : n === 3 ? "H3" : "SH";
+      text = md[2].trim();
+    }
+
+    // ── Annotated outline, e.g. "General (SH)" or "Layout #1 (SH)" ──
+    if (!kind) {
+      const ann = text.match(/\((H1|H2|H3|SH)\)\s*:?\s*$/i);
+      if (ann) {
+        kind = ann[1].toUpperCase();
+        text = text.slice(0, ann.index).trim().replace(/:$/, "").trim();
+      }
+    }
+
+    // Value, either bracketed ("[Custom/Default]") or after a colon
+    // ("Screen Resolution: 1920 x 1080"). A trailing colon with nothing after
+    // it is a group heading, not a value, so it stays a group.
+    let spec = null;
+    if (!kind) {
+      const sp = text.match(/\[([^\]]*)\]\s*$/);
+      if (sp) {
+        spec = sp[1].trim();
+        text = text.slice(0, sp.index).trim();
+      } else {
+        const kv = text.match(/^(.+?):[ \t]+(.+)$/);
+        if (kv) { text = kv[1].trim(); spec = kv[2].trim(); }
+      }
+    }
+    text = text.replace(/:$/, "").trim();
+
+    let depth;
+    // H1 is the document title line, a sibling of the surfaces rather than
+    // their parent — otherwise every H2 nests underneath it.
+    if (kind === "H1") depth = 0;
+    else if (kind === "H2") depth = 0;
+    else if (kind === "H3") depth = 1;
+    else if (kind === "SH") depth = 2 + Math.max(0, indent - 1);
+    else depth = 3 + Math.max(0, indent - 2);
+
+    flat.push({ kind: kind || (spec ? "FIELD" : "ITEM"), text, spec, depth, children: [] });
+  }
+
+  // Nest by depth
+  const roots = [];
+  const stack = [];
+  for (const node of flat) {
+    while (stack.length && node.depth <= stack[stack.length - 1].depth) stack.pop();
+    if (!stack.length) roots.push(node);
+    else stack[stack.length - 1].children.push(node);
+    stack.push(node);
+  }
+  return roots;
+}
+
+// ── Classify a value into option chips vs a single settled value ─────────────
+// Several alternatives ("Custom/Default", "CMP, SLG, JV") are the choices still
+// open, so they render as chips. One token is a decided value or a data type,
+// so it renders as plain text — that way a filled-in spec reads as answers and
+// the blank template reads as options, with no change of syntax.
+function prettyValue(s) {
+  return s
+    .replace(/^(\d+(?:\.\d+)?)\s*[*x×]\s*(\d+(?:\.\d+)?)$/i, "$1 × $2")
+    .replace(/^number\s*[*x×]\s*number$/i, "number × number");
+}
+
+function specTokens(spec) {
+  const s = spec.trim();
+  let parts;
+  if (s.indexOf('"') !== -1) parts = s.split(",").map((p) => p.replace(/["']/g, "").trim());
+  else if (s.indexOf("/") !== -1) parts = s.split("/").map((p) => p.trim());
+  else if (s.indexOf(",") !== -1) parts = s.split(",").map((p) => p.trim());
+  else parts = [s];
+  parts = parts.filter(Boolean);
+  return { parts, isType: parts.length === 1 };
+}
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+function renderValue(spec) {
+  const wrap = el("div", "row-val");
+  // An unset value in an exported spec — show it quietly, not as a chip
+  if (!spec || spec === "—" || spec === "-") {
+    wrap.appendChild(el("span", "type", "—"));
+    return wrap;
+  }
+  const { parts, isType } = specTokens(spec);
+  if (isType) {
+    wrap.appendChild(el("span", "type", prettyValue(parts[0])));
+  } else {
+    parts.forEach((p) => wrap.appendChild(el("span", "chip", p)));
+  }
+  return wrap;
+}
+
+// A leaf field, or a group that carries nested fields
+function renderField(node) {
+  const hasKids = node.children.length > 0;
+  if (hasKids && !node.spec) {
+    const g = el("div", "group");
+    g.appendChild(el("div", "group-label", node.text));
+    const body = el("div", "group-body");
+    node.children.forEach((c) => body.appendChild(renderField(c)));
+    g.appendChild(body);
+    return g;
+  }
+  const row = el("div", "row");
+  row.appendChild(el("div", "row-label", node.text));
+  row.appendChild(el("div", "row-lead"));
+  row.appendChild(node.spec ? renderValue(node.spec) : el("div", "row-val"));
+  if (hasKids) {
+    const holder = el("div", "group");
+    holder.appendChild(row);
+    const body = el("div", "group-body");
+    node.children.forEach((c) => body.appendChild(renderField(c)));
+    holder.appendChild(body);
+    return holder;
+  }
+  return row;
+}
+
+function renderSubsection(node) {
+  const box = el("div", "sub");
+  box.appendChild(el("div", "sub-title", node.text));
+  node.children.forEach((c) => {
+    if (c.kind === "SH") {
+      const nested = el("div", "sub-nested");
+      nested.appendChild(renderSubsection(c));
+      box.appendChild(nested);
+    } else {
+      box.appendChild(renderField(c));
+    }
+  });
+  return box;
+}
+
+function renderSection(node) {
+  const box = el("div", "sect");
+  box.appendChild(el("div", "sect-title", node.text));
+  box.appendChild(el("div", "sect-title-rule"));
+  node.children.forEach((c) => {
+    box.appendChild(c.kind === "SH" ? renderSubsection(c) : renderField(c));
+  });
+  return box;
+}
+
+// ── Build the document ──────────────────────────────────────────────────────
+let PAGES = [];
+
+// Find nodes by kind anywhere in the tree, so an unexpected nesting in the
+// source outline still yields the right page list.
+function collect(nodes, kind, acc) {
+  acc = acc || [];
+  nodes.forEach((n) => {
+    if (n.kind === kind) acc.push(n);
+    else collect(n.children, kind, acc);
+  });
+  return acc;
+}
+
+function build(src, name) {
+  const tree = parseSpec(src);
+  const cover = collect(tree, "H1")[0];
+  // Only H2s that actually carry content become pages, so a bare line like
+  // "## Release: v4.2.1" doesn't turn into an empty surface.
+  const surfaces = collect(tree, "H2").filter((n) => n.children.length > 0);
+
+  const docName = (name || "Client Configs").replace(/\.(md|markdown|txt)$/i, "");
+  document.getElementById("docTitle").textContent = docName;
+  document.getElementById("docSub").textContent =
+    surfaces.length + (surfaces.length === 1 ? " surface" : " surfaces") +
+    " · " + (surfaces.length + (cover ? 1 : 0)) + " exportable pages";
+  document.title = docName + " — Preview";
+
+  const host = document.getElementById("pages");
+  host.textContent = "";
+  PAGES = [];
+
+  const total = surfaces.length + (cover ? 1 : 0);
+  let n = 0;
+
+  if (cover) {
+    // A template cover lists the fields still to be filled in ("Car Line Name
+    // + Software Release Number"); a filled-in spec has a real title instead.
+    // Each cover part may carry its own value: "Car Line Name: Volvo EX90"
+    const names = cover.text
+      .split("+")
+      .map((s) => s.replace(/\(H1\)/gi, "").trim())
+      .filter(Boolean)
+      .map((s) => {
+        const kv = s.match(/^(.+?):[ \t]+(.+)$/);
+        return kv ? { k: kv[1].trim(), v: kv[2].trim() } : { k: s, v: "—" };
+      });
+    const isTemplate = names.length > 1;
+    // A cover whose parts carry values is a real client spec using the
+    // template's layout — it must not be labelled "Template".
+    const isFilled = names.some((n) => n.v !== "—");
+    const release = collect(tree, "H2").find((n) => /^release\b/i.test(n.text));
+
+    const page = el("section", "page cover");
+    page.id = "page-cover";
+    page.appendChild(pageTools(page, "00-cover"));
+    const head = el("div", "page-head");
+    const left = el("div");
+    left.appendChild(el("div", "page-idx", "COVER"));
+    left.appendChild(el("h2", "page-title", isTemplate ? docName : cover.text));
+    head.appendChild(left);
+    const meta = el("div", "page-meta");
+    meta.appendChild(el("div", null, "Design Configuration"));
+    meta.appendChild(el("div", null, isTemplate && !isFilled ? "Template" : release ? release.text : "Specification"));
+    head.appendChild(meta);
+    page.appendChild(head);
+    if (isTemplate) {
+      const fields = el("div", "cover-fields");
+      names.forEach((n) => {
+        const f = el("div", "cover-field");
+        f.appendChild(el("div", "k", n.k));
+        const v = el("div", "v", n.v);
+        if (n.v !== "—") v.classList.add("filled");
+        f.appendChild(v);
+        fields.appendChild(f);
+      });
+      page.appendChild(fields);
+    }
+    n++;
+    page.appendChild(foot(docName, n, total));
+    host.appendChild(page);
+    PAGES.push({ id: "page-cover", label: "Cover", el: page, file: "00-cover" });
+  }
+
+  surfaces.forEach((s, i) => {
+    const idx = String(i + 1).padStart(2, "0");
+    const page = el("section", "page");
+    page.id = "page-" + idx;
+    page.appendChild(pageTools(page, idx + "-" + slug(s.text)));
+
+    const head = el("div", "page-head");
+    const left = el("div");
+    left.appendChild(el("div", "page-idx", idx + " / " + String(surfaces.length).padStart(2, "0")));
+    left.appendChild(el("h2", "page-title", s.text));
+    head.appendChild(left);
+    const meta = el("div", "page-meta");
+    meta.appendChild(el("div", null, docName));
+    meta.appendChild(el("div", null, "Design Configuration"));
+    head.appendChild(meta);
+    page.appendChild(head);
+
+    s.children.forEach((c) => {
+      if (c.kind === "H3") page.appendChild(renderSection(c));
+      else if (c.kind === "SH") page.appendChild(renderSubsection(c));
+      else page.appendChild(renderField(c));
+    });
+
+    n++;
+    page.appendChild(foot(docName, n, total));
+    host.appendChild(page);
+    PAGES.push({ id: page.id, label: s.text, el: page, file: idx + "-" + slug(s.text) });
+  });
+
+  buildRail();
+  observe();
+}
+
+function slug(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "page";
+}
+
+function foot(docName, n, total) {
+  const f = el("div", "page-foot");
+  f.appendChild(el("span", null, docName));
+  f.appendChild(el("span", null, "Page " + n + " of " + total));
+  return f;
+}
+
+function pageTools(page, fileBase) {
+  const tools = el("div", "page-tools");
+  const png = el("button", "btn", "PNG");
+  png.onclick = () => exportPage(page, fileBase, png);
+  const copy = el("button", "btn", "Copy");
+  copy.onclick = () => copyPage(page, copy);
+  tools.appendChild(copy);
+  tools.appendChild(png);
+  return tools;
+}
+
+function buildRail() {
+  const host = document.getElementById("railItems");
+  host.textContent = "";
+  PAGES.forEach((p, i) => {
+    const b = el("button", "rail-item");
+    b.dataset.target = p.id;
+    b.appendChild(el("span", "n", p.file.slice(0, 2)));
+    b.appendChild(el("span", "t", p.label));
+    b.onclick = () => document.getElementById(p.id).scrollIntoView({ behavior: "smooth", block: "start" });
+    host.appendChild(b);
+  });
+}
+
+function observe() {
+  const items = [...document.querySelectorAll(".rail-item")];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      items.forEach((it) => it.classList.toggle("active", it.dataset.target === e.target.id));
+    });
+  }, { rootMargin: "-15% 0px -70% 0px" });
+  PAGES.forEach((p) => io.observe(document.getElementById(p.id)));
+}
+
+// ── Raster export ───────────────────────────────────────────────────────────
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._h);
+  t._h = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+async function rasterize(page) {
+  await (document.fonts && document.fonts.ready);
+  document.body.classList.add("capturing");
+  try {
+    return await html2canvas(page, {
+      scale: 2,
+      backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--card").trim() || "#ffffff",
+      useCORS: true,
+      logging: false,
+    });
+  } finally {
+    document.body.classList.remove("capturing");
+  }
+}
+
+function canvasToBlob(canvas) {
+  return new Promise((res) => canvas.toBlob(res, "image/png"));
+}
+
+function download(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function exportPage(page, fileBase, btn) {
+  if (btn) { btn.classList.add("busy"); btn.textContent = "…"; }
+  try {
+    const canvas = await rasterize(page);
+    const blob = await canvasToBlob(canvas);
+    download(blob, fileBase + ".png");
+    toast("Saved " + fileBase + ".png (" + canvas.width + "×" + canvas.height + ")");
+  } catch (e) {
+    toast("Export failed: " + e.message);
+  } finally {
+    if (btn) { btn.classList.remove("busy"); btn.textContent = "PNG"; }
+  }
+}
+
+async function copyPage(page, btn) {
+  const label = btn.textContent;
+  btn.classList.add("busy"); btn.textContent = "…";
+  try {
+    const canvas = await rasterize(page);
+    const blob = await canvasToBlob(canvas);
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    btn.classList.remove("busy"); btn.classList.add("ok"); btn.textContent = "Copied";
+    setTimeout(() => { btn.classList.remove("ok"); btn.textContent = label; }, 1600);
+    toast("Copied to clipboard — paste into Figma, Slides or Docs");
+  } catch (e) {
+    btn.classList.remove("busy"); btn.textContent = label;
+    toast("Clipboard blocked here — use PNG instead");
+  }
+}
+
+document.getElementById("btnAll").onclick = async function () {
+  const btn = this;
+  btn.classList.add("busy");
+  for (let i = 0; i < PAGES.length; i++) {
+    btn.textContent = "Exporting " + (i + 1) + "/" + PAGES.length;
+    try {
+      const canvas = await rasterize(PAGES[i].el);
+      download(await canvasToBlob(canvas), PAGES[i].file + ".png");
+      await new Promise((r) => setTimeout(r, 350)); // let each download settle
+    } catch (e) { /* keep going through the rest */ }
+  }
+  btn.classList.remove("busy");
+  btn.textContent = "Export all PNG";
+  toast("Exported " + PAGES.length + " pages");
+};
+
+document.getElementById("btnTheme").onclick = function () {
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
+  document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  this.textContent = dark ? "Dark" : "Light";
+};
+
+document.getElementById("btnPrint").onclick = () => window.print();
+
+document.getElementById("btnLoad").onclick = () => document.getElementById("fileInput").click();
+document.getElementById("fileInput").onchange = async function (e) {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  build(await f.text(), f.name);
+  e.target.value = "";
+  toast("Loaded " + f.name);
+};
+
+build(MARKDOWN_SOURCE, SOURCE_NAME);
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "description": "Streamline automotive software design specifications with customizable dimensions and configurations for head units, clusters, HUDs, and navigational widgets.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

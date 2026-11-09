@@ -1,0 +1,115 @@
+Car Line Name: STLA P1H (H1) + Software Release Number: 0.1 (H1)
+Head Unit (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [538.56*95.04mm]
+		- Screen Resolution [2040*720px @ 192dpi]
+		- Header/Footer Size [90px]
+		- DPI [192]
+		- Diagonal Measurement [11.3]
+		- Display FPS (Frames per second) [?]
+		- Minimum Font Size [30px]
+		- Keyboard Size [2030*424px]
+	- Display Zones (SH)
+		- Projection Area [1669*540px]
+		- Map Display Area [1028*492px]
+		- Content Layouts [1]
+	- Configurations and Customisations (SH)
+		- Horizon Panel Elements to display [?]
+		- NIP Layout Type ["NORMAL_LAYOUT"]
+		- ETA Layout Type ["2 Row Layout"]
+		- Chevron [Custom*]
+		- UI Sizing Theme [MediumShortNarrow]
+		- Weather Button [Enabled]
+		- Compass [Enabled]
+		- Icons [Custom - STLA]
+		- Search [Custom - Google]
+		- Settings [Default]
+		- Map Controls Configuration
+			- Position [Driver*]
+			- Visibility [Default]
+		- Map & UI Mode Sync [True]
+		- Number of Ambiances/Themes [8]
+		- Ambiance related changes [Colors]
+		- 3D Buildings [Enabled]
+		- 3D Landmarks [Enabled]
+- Notes (SH)
+		- Custom Chevron needs to be confirmed with TT.
+		- Map Controls Configuration: STLA requests to have this on the Passenger Side post SOP1.
+Cluster (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Physical Dimensions [538.56*95.04mm]
+		- Screen Resolution [2040*720px @ 192dpi]
+		- Header/Footer Size [88/88px]
+		- DPI [192]
+		- Scale Factor [?*]
+		- Diagonal Measurement [11.3]
+		- Display FPS (Frames per second) [?*]
+		- Minimum Font Size [30px]
+		- Number of Content Layouts [2]
+	- Layout #1 (SH)
+		- Map Projection Area [1669*549px]
+		- Map Safe Area [1028*492px*]
+		- Content Zone #1 Size [588*492px]
+		- Content Zone #1 Positioning [896x,114y]
+		- Content Zone #2 Size [480*492px]
+		- Content Zone #2 Positioning [1484x,494y]
+		- Configurations and Customisations: (SH)
+			- Horizon Panel Elements to display [CMP, SLG]
+			- Display Map [True]
+			- Display Current Street Component [?]
+			- Display Vignette [True]
+			- Vignette Name [?]
+			- NIP Layout Type ["LANDSCAPE_MEDIUM"]
+			- ETA Layout Type ["1 Row"]
+			- Chevron [Custom*]
+			- UI Sizing Theme [MediumShortNarrow]
+			- Individual TBT Component [Enabled]
+				- Implementation Type [API]
+			- Blind Spot Camera [Disabled*]
+			- Dynamic Map Safe Area [Enabled*]
+- Notes (SH)
+		- Scale Factor to be checked by TT.
+		- Display FPS to be checked by STLA.
+		- Map Safe Area is shared by the chevron and the HP.
+		- Display Current Street Component to be checked with STLA.
+		- Vignette name to be confirmed by STLA.
+		- Custom Chevron needs to be confirmed with TT.
+		- Blind Spot Camera to be confirmed with STLA.
+		- Dynamic Map Safe Area [Enabled*]
+Navigational Widget (H2)
+- Sizes and Dimensions (H3)
+	- General (SH)
+		- Number of sizes [2]
+		- Additional Controls [True]
+		- Size of header/footer of controls [112px]
+	- Layout #1-Extended (SH)
+		- Forced Sizing Theme [False]
+		- NIP Layout Type ["LANDSCAPE_MINIMAL"*]
+		- ETA Layout Type ["MINIMAL"*]
+		- Chevron Customisation [Enabled*]
+		- UI Sizing Theme [?*]
+		- Events and Hazards [Disabled]
+		- Suggested Destinations [Disabled]
+		- Individual UI Themeing [False]
+		- Individual Map Themeing [False]
+	- Layout #2-Collapsed (SH)
+		- Forced Sizing Theme [True]
+		- NIP Layout Type ["NA"]
+		- ETA Layout Type ["NA"]
+		- Chevron Customisation [Disabled]
+		- UI Sizing Theme [?*]
+		- Events and Hazards [Disabled]
+		- Suggested Destinations [Disabled]
+		- Individual UI Themeing [False]
+		- Individual Map Themeing [False]
+- Notes:
+	- NIP Layout Type for Layout #1 to be confirmed by TT.
+	- ETA Layout Type for Layout #1 to be confirmed by TT.
+	- Custom Chevron to be confirmed by TT.
+	- UI Sizing Theme to be confirmed by TT.
+Decision Doc (H2)
+- Topics (H3)
+	- Events and Hazards won't be displayed on Widgets Layout #1 and Layout #2 due to the lack of space.
+	- Suggested Destinations won't be displayed on Widgets Layout #1 and Layout #2 due to the lack of space.
