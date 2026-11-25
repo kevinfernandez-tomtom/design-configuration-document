@@ -169,7 +169,6 @@
 |---|---|---|---|---|
 | Other features | | | | |
 | ↳ Blind spot camera | Enabled / Disabled | | | |
-| ↳ Current street name | Enabled / Disabled | | | |
 
 ## 3.3 Individual TBT Component
 
@@ -369,6 +368,7 @@
 
 | Date | Version | Author | Change |
 |---|---|---|---|
+| 2026-11-25 | V3 | Kevin Fernandez | Cluster: removed Current street name from the screen-wide configurations. The current street component is set per layout (Display current street component). |
 | 2026-11-25 | V3 | Kevin Fernandez | Added the NavApp Cluster and HUD config parameters to the Cluster and HUD layouts: config key and default in Notes, new rows for Size unit (`displayPX`), Display horizon panel, Horizon panel size and position (`hpComponentRect`) and Map safe area position (`safeAreaComponentRect`). Vignette names and Horizon panel elements now list the allowed values; HUD elements reduced to `CMP`. Added `COMPACT` to §1.1 (Cluster only) and `UEP` to §1.4. Filled the glossary for CMP, NIP, UEP, Horizon Panel, Vignette, Safe Area and XY coordinates. |
 | 2026-11-25 | V3 | Kevin Fernandez | Moved the Individual TBT component out of Cluster screen-wide configurations into its own section on the Cluster (§3.3) and HUD (§4.2), with Implementation type as one of {Streamed, API}. Added Layout position `x, y` to every content layout (Head Unit, Cluster, HUD). Added Display vignette and Vignette name to Head Unit layouts, so every layout has the vignette toggle. Renumbered Cluster layouts to §3.4 and HUD layouts to §4.3. |
 | 2026-11-23 | V3 | Kevin Fernandez | Navigation Widget: removed Forced sizing theme and UI sizing theme from the size variants; moved Size of controls header / footer from General into each size; added Navigation Widget Size (§1.5) and Panels docked / undocked to each size. Added §1.5 Navigation Widget Sizes. Cluster: added Other features grouping and the per-layout name. |

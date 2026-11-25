@@ -169,7 +169,6 @@
 |---|---|---|---|---|
 | Other Features | | | |
 | ↳ Blind spot camera | Enabled | | | |
-| ↳ Current street name | Enabled | | | |
 
 ## 3.3 Individual TBT Component
 
