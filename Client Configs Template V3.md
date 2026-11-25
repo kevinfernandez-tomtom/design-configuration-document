@@ -37,18 +37,19 @@
 
 | Term | Meaning |
 |---|---|
-| CMP | Compass *(confirm)* |
+| CMP | Consecutive Maneuver Panel, a Horizon Panel sub panel |
 | SLG | Speed limit / guidance element *(confirm)* |
 | JV | Junction view *(confirm)* |
-| ETA | Estimated time of arrival panel |
-| NIP | Navigation instruction panel *(confirm)* |
+| ETA | Estimated time of arrival panel, a Horizon Panel sub panel |
+| UEP | Upcoming Events Panel, a Horizon Panel sub panel (Cluster only) |
+| NIP | Next Instruction Panel, shown in the Horizon Panel |
 | TBT | Turn-by-turn |
-| Horizon Panel | *(define)* |
-| Vignette | *(define)* |
+| Horizon Panel | The panel holding the NIP and its sub panels (CMP, ETA, UEP). Its size and position come from `hpComponentRect` |
+| Vignette | A border on the outer edges of the Cluster or HUD |
 | Content Zone | *(define)* |
-| Safe Area | *(define)* |
+| Safe Area | The rectangle that frames the chevron. The chevron sits in its middle. When it isn't set, the whole screen is the safe area |
 | UI Sizing Theme | *(define the letters, see 1.3)* |
-| XY coordinates | Origin: *(specify, e.g. top-left, px)* |
+| XY coordinates | Origin: top-left of the activity. `x` is the margin from the left edge (`startMargin`, does not mirror in right-to-left languages), `y` the margin from the top (`topMargin`). Unit is px or dp, set by `displayPX` |
 | Map Projection Size | *(define)* |
 
 ---
@@ -58,7 +59,7 @@
 *Defined once here and referenced by every screen, so the lists cannot drift apart.*
 
 ### 1.1 NIP Layout Types
-`NORMAL_LAYOUT`, `LANDSCAPE_MINIMAL`, `LANDSCAPE_MEDIUM`, `LANDSCAPE_MAXIMAL`, `PORTRAIT_MINIMAL`, `PORTRAIT_MEDIUM`, `PORTRAIT_MAXIMAL`
+`NORMAL_LAYOUT`, `LANDSCAPE_MINIMAL`, `LANDSCAPE_MEDIUM`, `LANDSCAPE_MAXIMAL`, `PORTRAIT_MINIMAL`, `PORTRAIT_MEDIUM`, `PORTRAIT_MAXIMAL`, `COMPACT` *(Cluster only)*
 
 ### 1.2 ETA Layout Types
 `NORMAL_LAYOUT_WIDE`, `NORMAL_LAYOUT_NARROW`, `MINIMAL`, `MEDIUM`, `MAXIMAL`
@@ -70,7 +71,7 @@
 | | |
 
 ### 1.4 Horizon Panel Elements
-`Default`, `CMP`, `SLG`, `JV`, `ETA`
+`Default`, `CMP`, `SLG`, `JV`, `ETA`, `UEP`
 
 ### 1.5 Navigation Widget Sizes
 `Mini App`, `Micro App`, `Nano App` *(confirm)*
@@ -183,6 +184,8 @@
 
 *Repeat the whole block 3.4.x once per layout. The number of blocks must equal "Number of content layouts". Name each layout, e.g. "Layout #1 - TBT".*
 
+*Each layout corresponds to one `cluster_setup_config.json` for `ClusterActivity` (ANA and AUI; UXL does not use it). Where a row maps to a config key, Notes give the key and the default used when the key is omitted. Rows without a key are not part of that config.*
+
 ### 3.4.1 Layout #1 - [Name]
 
 **Sizes and zones**
@@ -191,7 +194,11 @@
 |---|---|---|---|---|
 | Map Projection Size *(or Content Area Size when there is no map)* | `W × H`, px | | | |
 | Layout position | `x, y`, px | | | Top-left corner of the layout on the screen |
-| Map safe area | `W × H`, px | | | |
+| Size unit | one of {px, dp} | | | Key `displayPX` (true = px, false = dp). Default: dp. Applies to the horizon panel and safe area sizes and positions below |
+| Horizon panel size | `W × H`, px / dp | | | Key `hpComponentRect` `width`, `height`. Default: 0 |
+| Horizon panel position | `x, y`, px / dp | | | Key `hpComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
+| Map safe area | `W × H`, px / dp | | | Key `safeAreaComponentRect` `width`, `height`. Default: none, the whole screen is the safe area. The chevron sits in its middle |
+| Map safe area position | `x, y`, px / dp | | | Key `safeAreaComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
 
 **Content zones** *(add a row per zone)*
 
@@ -204,14 +211,15 @@
 | Parameter | Type / Allowed values | Value | Std / Custom | Source / Notes |
 |---|---|---|---|---|
 | Panels docked / undocked | one of {Docked, Undocked} | | | |
-| Horizon panel elements | any of §1.4 | | | |
-| Display map | Enabled / Disabled | | | |
+| Display horizon panel | Enabled / Disabled | | | Key `displayHpComponent`. Default: Enabled |
+| Horizon panel elements | any of {`CMP`, `ETA`, `UEP`} | | | Key `hpElementsToShowOnCluster`. Default: `CMP`, `ETA`. A replacement static file without this key shows no sub panels, so always list them |
+| Display map | Enabled / Disabled | | | Key `displayMapComponent`. Default: Enabled |
 | Dynamic map safe area | Enabled / Disabled | | | |
-| Display current street component | Enabled / Disabled | | | |
-| Display vignette | Enabled / Disabled | | | |
-| Vignette name | text | | | Only if the vignette is displayed |
-| NIP layout type | one of §1.1 | | | |
-| ETA layout type | one of §1.2 | | | |
+| Display current street component | Enabled / Disabled | | | Key `displayCurrentStreetComponent`. Default: Enabled. Bottom-centred in the map safe area; only shown when the safe area is large enough and there is a street name |
+| Display vignette | Enabled / Disabled | | | Key `displayVignette`. Default: Enabled |
+| Vignette name | one of {`default_vignette`, `vignette_1` … `vignette_5`} | | | Key `vignetteName`. Default: `default_vignette`. Only if the vignette is displayed. An unknown name falls back to the default |
+| NIP layout type | one of §1.1 | | | Key `nipLayoutType`. Default: none, a layout that fits the horizon panel is picked adaptively |
+| ETA layout type | one of §1.2 | | | Key `etaLayoutType`. Default: none, the ETA panel shows as much as fits the horizon panel, on one row |
 | Chevron | Std / Custom | | | |
 | UI sizing theme | one of §1.3 | | | |
 
@@ -248,6 +256,8 @@
 
 *Repeat the block 4.3.x once per layout.*
 
+*Each layout corresponds to one `hud_setup_config.json` for `HudActivity` (ANA and AUI; UXL has no HUD). Where a row maps to a config key, Notes give the key and the default used when the key is omitted. Rows without a key are not part of that config.*
+
 ### 4.3.1 Layout #1
 
 **Sizes and zones**
@@ -257,7 +267,11 @@
 | Layout resolution | `W × H`, px | | | Was duplicated in General in V2. Per-layout if it differs from 4.1, otherwise `N/A` |
 | Layout position | `x, y`, px | | | Top-left corner of the layout on the screen |
 | Map Projection Size | `W × H`, px | | | |
-| Map safe area | `W × H`, px | | | |
+| Size unit | one of {px, dp} | | | Key `displayPX` (true = px, false = dp). Default: dp. Applies to the horizon panel and safe area sizes and positions below |
+| Horizon panel size | `W × H`, px / dp | | | Key `hpComponentRect` `width`, `height`. Default: none, the XML-defined values are used |
+| Horizon panel position | `x, y`, px / dp | | | Key `hpComponentRect` `startMargin`, `topMargin`. Default: none, the XML-defined values are used |
+| Map safe area | `W × H`, px / dp | | | Key `safeAreaComponentRect` `width`, `height`. Default: none, the whole screen is the safe area. The chevron sits in its middle |
+| Map safe area position | `x, y`, px / dp | | | Key `safeAreaComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
 
 **Content zones** *(add a row per zone)*
 
@@ -270,12 +284,13 @@
 
 | Parameter | Type / Allowed values | Value | Std / Custom | Source / Notes |
 |---|---|---|---|---|
-| Horizon panel elements | any of {`SLG`, `CMP`} | | | Restricted subset of §1.4 |
-| Display map | Enabled / Disabled | | | |
-| Display vignette | Enabled / Disabled | | | |
-| Vignette name | text | | | Only if the vignette is displayed |
-| NIP layout type | one of §1.1 | | | |
-| ETA layout type | N/A | N/A | | Not supported on HUD *(confirm)* |
+| Display horizon panel | Enabled / Disabled | | | Key `displayHpComponent`. Default: Enabled |
+| Horizon panel elements | any of {`CMP`} | | | Key `hpElementsToShowOnHud`. Default: `CMP`. The HUD config supports only `CMP`; V3 listed `SLG` too |
+| Display map | Enabled / Disabled | | | Key `displayMapComponent`. Default: Enabled |
+| Display vignette | Enabled / Disabled | | | Key `displayVignette`. Default: Enabled |
+| Vignette name | one of {`default_hud_vignette`, `vignette_1` … `vignette_5`} | | | Key `vignetteName`. Default: `default_hud_vignette`. Only if the vignette is displayed. An unknown name falls back to the default |
+| NIP layout type | one of §1.1, except `COMPACT` | | | Key `nipLayoutType`. Default: `NORMAL_LAYOUT` |
+| ETA layout type | N/A | N/A | | Not supported on HUD: the HUD config has no ETA setting |
 | Chevron | Std / Custom | | | Was "Chevron Customisation [Enabled/Disabled]" in V2 |
 | UI sizing theme | one of §1.3 | | | |
 
@@ -354,6 +369,7 @@
 
 | Date | Version | Author | Change |
 |---|---|---|---|
+| 2026-11-25 | V3 | Kevin Fernandez | Added the NavApp Cluster and HUD config parameters to the Cluster and HUD layouts: config key and default in Notes, new rows for Size unit (`displayPX`), Display horizon panel, Horizon panel size and position (`hpComponentRect`) and Map safe area position (`safeAreaComponentRect`). Vignette names and Horizon panel elements now list the allowed values; HUD elements reduced to `CMP`. Added `COMPACT` to §1.1 (Cluster only) and `UEP` to §1.4. Filled the glossary for CMP, NIP, UEP, Horizon Panel, Vignette, Safe Area and XY coordinates. |
 | 2026-11-25 | V3 | Kevin Fernandez | Moved the Individual TBT component out of Cluster screen-wide configurations into its own section on the Cluster (§3.3) and HUD (§4.2), with Implementation type as one of {Streamed, API}. Added Layout position `x, y` to every content layout (Head Unit, Cluster, HUD). Added Display vignette and Vignette name to Head Unit layouts, so every layout has the vignette toggle. Renumbered Cluster layouts to §3.4 and HUD layouts to §4.3. |
 | 2026-11-23 | V3 | Kevin Fernandez | Navigation Widget: removed Forced sizing theme and UI sizing theme from the size variants; moved Size of controls header / footer from General into each size; added Navigation Widget Size (§1.5) and Panels docked / undocked to each size. Added §1.5 Navigation Widget Sizes. Cluster: added Other features grouping and the per-layout name. |
 | 2026-11-17 | V3 | | Restructured into tables with a shared field format. Added shared enumerations, glossary and document info. Unified toggle notation. Split Cluster config into screen-wide and per-layout. Added Passenger Screen placeholder. Renamed Navigational Widget to Navigation Widget (Activity). Added decision and open-question tables. Added proposed new fields (marked *(new)*). Fixed typos. |

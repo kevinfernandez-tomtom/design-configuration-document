@@ -37,18 +37,19 @@
 
 | Term | Meaning |
 |---|---|
-| CMP | Compass *(confirm)* |
+| CMP | Consecutive Maneuver Panel, a Horizon Panel sub panel |
 | SLG | Speed limit / guidance element *(confirm)* |
 | JV | Junction view *(confirm)* |
-| ETA | Estimated time of arrival panel |
-| NIP | Navigation instruction panel *(confirm)* |
+| ETA | Estimated time of arrival panel, a Horizon Panel sub panel |
+| UEP | Upcoming Events Panel, a Horizon Panel sub panel (Cluster only) |
+| NIP | Next Instruction Panel, shown in the Horizon Panel |
 | TBT | Turn-by-turn |
-| Horizon Panel | *(define)* |
-| Vignette | *(define)* |
+| Horizon Panel | The panel holding the NIP and its sub panels (CMP, ETA, UEP). Its size and position come from `hpComponentRect` |
+| Vignette | A border on the outer edges of the Cluster or HUD |
 | Content Zone | *(define)* |
-| Safe Area | *(define)* |
+| Safe Area | The rectangle that frames the chevron. The chevron sits in its middle. When it isn't set, the whole screen is the safe area |
 | UI Sizing Theme | *(define the letters, see 1.3)* |
-| XY coordinates | Origin: *(specify, e.g. top-left, px)* |
+| XY coordinates | Origin: top-left of the activity. `x` is the margin from the left edge (`startMargin`, does not mirror in right-to-left languages), `y` the margin from the top (`topMargin`). Unit is px or dp, set by `displayPX` |
 | Map Projection Size |
 
 ---
@@ -58,7 +59,7 @@
 *Defined once here and referenced by every screen, so the lists cannot drift apart.*
 
 ### 1.1 NIP Layout Types
-`NORMAL_LAYOUT`, `LANDSCAPE_MINIMAL`, `LANDSCAPE_MEDIUM`, `LANDSCAPE_MAXIMAL`, `PORTRAIT_MINIMAL`, `PORTRAIT_MEDIUM`, `PORTRAIT_MAXIMAL`
+`NORMAL_LAYOUT`, `LANDSCAPE_MINIMAL`, `LANDSCAPE_MEDIUM`, `LANDSCAPE_MAXIMAL`, `PORTRAIT_MINIMAL`, `PORTRAIT_MEDIUM`, `PORTRAIT_MAXIMAL`, `COMPACT` *(Cluster only)*
 
 ### 1.2 ETA Layout Types
 `NORMAL_LAYOUT_WIDE`, `NORMAL_LAYOUT_NARROW`, `MINIMAL`, `MEDIUM`, `MAXIMAL`
@@ -70,7 +71,7 @@
 | | |
 
 ### 1.4 Horizon Panel Elements
-`Default`,`CMP`, `SLG`, `JV`, `ETA`
+`Default`,`CMP`, `SLG`, `JV`, `ETA`, `UEP`
 
 ### 1.5 Navigation Widget Sizes
 `Mini App`, `Micro App`, `Nano App` *Review*
@@ -183,6 +184,8 @@
 
 *Repeat the whole block 3.4.x once per layout. The number of blocks must equal "Number of content layouts".*
 
+*Each layout corresponds to one `cluster_setup_config.json` for `ClusterActivity` (ANA and AUI; UXL does not use it). Where a row maps to a config key, Notes give the key and the default used when the key is omitted. Rows without a key are not part of that config.*
+
 ### 3.4.1 Layout #1 - TBT
 
 **Sizes and zones**
@@ -191,7 +194,11 @@
 |---|---|---|---|---|
 | Content Area Size | '570 x 546', px *Review* | | | |
 | Layout position | `x, y`, px | | | Top-left corner of the layout on the screen |
-| Map safe area | NA | | | |
+| Size unit | one of {px, dp} | | | Key `displayPX` (true = px, false = dp). Default: dp. Applies to the horizon panel and safe area sizes and positions below |
+| Horizon panel size | `W × H`, px / dp | | | Key `hpComponentRect` `width`, `height`. Default: 0 |
+| Horizon panel position | `x, y`, px / dp | | | Key `hpComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
+| Map safe area | NA | | | Key `safeAreaComponentRect` `width`, `height`. Default: none, the whole screen is the safe area. The chevron sits in its middle |
+| Map safe area position | `x, y`, px / dp | | | Key `safeAreaComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
 
 **Content zones** *(add a row per zone)*
 
@@ -204,14 +211,15 @@
 | Parameter | Type / Allowed values | Value | Std / Custom | Source / Notes |
 |---|---|---|---|---|
 | Panels docked / undocked | NA | | | |
-| Horizon panel elements | Intstruction Arrow, Distance to Maneuver, Name of Road *Review* | | | |
-| Display map | Disabled | | | |
+| Display horizon panel | Enabled / Disabled | | | Key `displayHpComponent`. Default: Enabled |
+| Horizon panel elements | Intstruction Arrow, Distance to Maneuver, Name of Road *Review* | | | Key `hpElementsToShowOnCluster`. Default: `CMP`, `ETA`. A replacement static file without this key shows no sub panels, so always list them |
+| Display map | Disabled | | | Key `displayMapComponent`. Default: Enabled |
 | Dynamic map safe area | Disabled | | | |
-| Display current street component | Disabled | | | |
-| Display vignette | Disabled | | | |
-| Vignette name | NA | | | Only if the vignette is displayed |
-| NIP layout type | NA | | | |
-| ETA layout type | NA | | | |
+| Display current street component | Disabled | | | Key `displayCurrentStreetComponent`. Default: Enabled. Bottom-centred in the map safe area; only shown when the safe area is large enough and there is a street name |
+| Display vignette | Disabled | | | Key `displayVignette`. Default: Enabled |
+| Vignette name | NA | | | Key `vignetteName`. Default: `default_vignette`. Only if the vignette is displayed. An unknown name falls back to the default |
+| NIP layout type | NA | | | Key `nipLayoutType`. Default: none, a layout that fits the horizon panel is picked adaptively |
+| ETA layout type | NA | | | Key `etaLayoutType`. Default: none, the ETA panel shows as much as fits the horizon panel, on one row |
 | Chevron | Custom | | | |
 | UI sizing theme | *Unknown* | | | |
 
@@ -224,7 +232,11 @@
 |---|---|---|---|---|
 | Map Projection Size | `1669 x 540`, px *Review* | | | |
 | Layout position | `x, y`, px | | | Top-left corner of the layout on the screen |
-| Map safe area | `1028 x 492`, px *Review* | | | |
+| Size unit | one of {px, dp} | | | Key `displayPX` (true = px, false = dp). Default: dp. Applies to the horizon panel and safe area sizes and positions below |
+| Horizon panel size | `W × H`, px / dp | | | Key `hpComponentRect` `width`, `height`. Default: 0 |
+| Horizon panel position | `x, y`, px / dp | | | Key `hpComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
+| Map safe area | `1028 x 492`, px *Review* | | | Key `safeAreaComponentRect` `width`, `height`. Default: none, the whole screen is the safe area. The chevron sits in its middle |
+| Map safe area position | `x, y`, px / dp | | | Key `safeAreaComponentRect` `startMargin`, `topMargin`. Default: 0, 0 |
 
 **Content zones** *(add a row per zone)*
 
@@ -237,14 +249,15 @@
 | Parameter | Type / Allowed values | Value | Std / Custom | Source / Notes |
 |---|---|---|---|---|
 | Panels docked / undocked | Undocked | | | |
-| Horizon panel elements | Default *Review* | | | |
-| Display map | Enabled| | | |
+| Display horizon panel | Enabled / Disabled | | | Key `displayHpComponent`. Default: Enabled |
+| Horizon panel elements | Default *Review* | | | Key `hpElementsToShowOnCluster`. Default: `CMP`, `ETA`. A replacement static file without this key shows no sub panels, so always list them |
+| Display map | Enabled| | | Key `displayMapComponent`. Default: Enabled |
 | Dynamic map safe area | Enabled | | | |
-| Display current street component | Enabled *Review* | | | |
-| Display vignette | Enabled | | | |
-| Vignette name | *Unknown* | | | Only if the vignette is displayed |
-| NIP layout type | *Unknown* | | | |
-| ETA layout type | *Unknown* | | | |
+| Display current street component | Enabled *Review* | | | Key `displayCurrentStreetComponent`. Default: Enabled. Bottom-centred in the map safe area; only shown when the safe area is large enough and there is a street name |
+| Display vignette | Enabled | | | Key `displayVignette`. Default: Enabled |
+| Vignette name | *Unknown* | | | Key `vignetteName`. Default: `default_vignette`. Only if the vignette is displayed. An unknown name falls back to the default |
+| NIP layout type | *Unknown* | | | Key `nipLayoutType`. Default: none, a layout that fits the horizon panel is picked adaptively |
+| ETA layout type | *Unknown* | | | Key `etaLayoutType`. Default: none, the ETA panel shows as much as fits the horizon panel, on one row |
 | Chevron | Custom | | | |
 | UI sizing theme | *Unknown* | | | |
 
